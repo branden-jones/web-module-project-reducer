@@ -6,7 +6,7 @@ import TotalDisplay from "./TotalDisplay";
 import CalcButton from "./CalcButton";
 
 import reducer, { initialState } from "../reducers";
-import { applyNumber, changeOperation } from "../actions";
+import { applyNumber, changeOperation, clearDisplay, memoryAdd, memoryClear, memoryRecall } from "../actions";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -17,6 +17,22 @@ function App() {
 
   const handleChangeOperation = (operation) => {
     dispatch(changeOperation(operation));
+  };
+
+  const handleClear = () => {
+    dispatch(clearDisplay());
+  };
+
+  const handleMemoryAdd = () => {
+    dispatch(memoryAdd());
+  };
+
+  const handleMemoryClear = () => {
+    dispatch(memoryClear());
+  };
+
+  const handleMemoryRecall = (number) => {
+    dispatch(memoryRecall());
   };
 
   return (
@@ -42,9 +58,9 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"M+"} />
-              <CalcButton value={"MR"} />
-              <CalcButton value={"MC"} />
+              <CalcButton value={"M+"} onClick={handleMemoryAdd} />
+              <CalcButton value={"MR"} onClick={handleMemoryRecall} />
+              <CalcButton value={"MC"} onClick={handleMemoryClear} />
             </div>
 
             <div className="row">
@@ -72,7 +88,7 @@ function App() {
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"} />
+              <CalcButton value={"CE"} onClick={() => handleClear()} />
             </div>
           </form>
         </div>
